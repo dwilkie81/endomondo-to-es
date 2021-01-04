@@ -31,7 +31,7 @@ Next we want to create an index and a mapping to tell ES what types to use when 
 
 This lets us send API requests to ElasticSearch - we could do this externally through the API, but I don't have that setup yet.
 
-Copy the contents of `/src/mapping`, paste into dev tools and run each of the 3 requests.  (DELETE request will fail first time, so doesn't need to be run)
+Copy the contents of `/src/mappings`, paste into dev tools and run each of the 3 requests.  (DELETE request will fail first time, so doesn't need to be run)
 
 We can now load data into ElasticSearch - the following nasty bash snippet will do the trick
 
@@ -61,9 +61,16 @@ Now we can start querying the data
 * Choose `sport.keyword` field
 * Now have a pie chart showing all activities split by sport.
 
+### Map My Run
+
+Put the CSV in `data/map.my.run.raw/`
+Run `node transform2.js data/map.my.run.raw/filename.csv`
+Load to ES with:
+
+`ls data/csv.to.object/*.json | sed "s/\(.*\)/curl -X POST -H \"Content-Type: application\/json\" -d '@\1' http:\/\/localhost:9200\/workouts\/_doc/" | bash`
+
 ### Next steps
 
 * Add scripts to create mappings/load data
-* Think about persisting this data - think it's currently lost when docker container is stopped?
 * Load data into different indexes, we can then use an alias to choose what data we want to include - means we can load new data without destroying old data
-* Add import process for map my run CSV
+* Improve import process for map my run CSV

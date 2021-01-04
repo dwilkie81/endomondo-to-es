@@ -1,0 +1,8 @@
+{
+  "name": "endomondo-to-es",
+  "version": "0.0.1",
+  "description": "Scripts to load endomondo/map my run data into ElasticSearch",
+  "dependencies": {
+    "csv-parser": "^3.0.0"
+  }
+}

@@ -1,2 +1,5 @@
 data/endomondo.raw/*.json
 data/array.to.object/*.json
+data/csv.to.object/*.json
+data/map.my.run.raw/*.csv
+src/node_modules
