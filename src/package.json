@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "Scripts to load endomondo/map my run data into ElasticSearch",
   "dependencies": {
-    "csv-parser": "^3.0.0"
+    "axios": "^0.21.1",
+    "csv-parser": "^3.0.0",
+    "esm": "^3.2.25"
   }
 }

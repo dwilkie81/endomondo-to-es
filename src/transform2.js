@@ -60,6 +60,7 @@ fs.createReadStream(mapMyRunPath)
   .on('data', (row) => {
       rowNum++;
 
+      // TODO: Cycling Sport and Mountain Biking are both called a "Bike Ride" use tags to differentiate
       const sport = sportTransform[row[COLS.ACTIVITY_TYPE]];
       const created_date = dateFormatter(row[COLS.DATE_SUBMITTED]);
       const start_time = dateFormatter(row[COLS.WORKOUT_DATE]);
