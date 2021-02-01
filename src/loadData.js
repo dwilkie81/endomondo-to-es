@@ -1,18 +1,28 @@
 /**
- * Usage node -r esm loadEndomondo.js [indexName]
- * will create a new index and mapping, alias to workouts and load the endomondo data
+ * Usage node -r esm loadData.js [source] [indexName]
+ * 
+ * source is one of endomondo | mapmyrun
+ * 
+ * will create a new index and mapping, alias to workouts and load the endomondo/map my run data
  */
 import { createIndex, aliasIndex } from './manageIndexes';
 import axios from 'axios';
+import { exit } from 'process';
 
 const elasticSearchHost = 'http://localhost:9200';
 
 const path = require('path');
 const fs = require('fs');
 
-const dataPath = path.join(__dirname, '../data/array.to.object');
+const dataPaths = {
+    endomondo: path.join(__dirname, '../data/array.to.object'),
+    mapmyrun: path.join(__dirname, '../data/csv.to.object'),
+};
 
-const indexName = process.argv[2];
+const dataSource = process.argv[2];
+const indexName = process.argv[3];
+
+const dataPath = dataPaths[dataSource];
 
 const loadRecord = async (data) => {
     try {
@@ -62,6 +72,11 @@ const main = async () => {
     } catch (error) {
         console.log('something went wrong', error);
     }
+}
+
+if (!dataPath) {
+    console.log('invalid dataSource', dataSource);
+    exit;
 }
 
 main();

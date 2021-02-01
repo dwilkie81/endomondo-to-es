@@ -27,7 +27,7 @@ Kibana is now available on localhost port 5601.  ElasticSearch is now available 
 
 Next we want to create an index and a mapping to tell ES what types to use when we import data.  
 
-Run the script `node -r esm loadEndomondo.js workouts.endomondo.20210131`
+Run the script `node -r esm loadData.js endomondo workouts.endomondo.20210131`
 
 This will: 
 * Create a new index called `workouts.endomondo.20210131`
@@ -62,12 +62,12 @@ Now we can start querying the data
 NB: This won't work at the moment because we no longer have a workouts index.
 
 Put the CSV in `data/map.my.run.raw/`
-Run `node transform2.js data/map.my.run.raw/filename.csv`
+Run `rm ../data/csv.to.object/*.json` to clear any previously created files
+Run `node transform2.js ../data/map.my.run.raw/filename.csv`
 Load to ES with:
 
-`ls data/csv.to.object/*.json | sed "s/\(.*\)/curl -X POST -H \"Content-Type: application\/json\" -d '@\1' http:\/\/localhost:9200\/workouts\/_doc/" | bash`
+Run the script `node -r esm loadData.js mapmyrun workouts.mapmyrun.20210201`
 
 ### Next steps
 
-* Load data into different indexes, we can then use an alias to choose what data we want to include - means we can load new data without destroying old data
 * Improve import process for map my run CSV
