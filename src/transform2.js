@@ -1,16 +1,20 @@
 /**
- * Usage node transform2.js [path to csv]
+ * Usage -r esm node transform2.js [path to csv]
  * will output to ../data/csv.to.object
  */
+
+import { mapMyRunOutputDir } from './constants/dataFileSystem';
+import { clearMapMyRunOutputDir } from './util/manageFiles';
 
 const csv = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
  
 const mapMyRunPath = process.argv[2];
-const outputPath = path.join(__dirname, '../data/csv.to.object');
 
 console.log('Transforming from: ', mapMyRunPath);
+
+clearMapMyRunOutputDir();
 
 const COLS = {
     ACTIVITY_TYPE: 'Activity Type',
@@ -40,6 +44,7 @@ const sportTransform = {
 
 const monthTransform = {
     'Jan.': 0,
+    'Feb.': 1,
     'Nov.': 10,
     'Dec.': 11,
 };
@@ -90,7 +95,7 @@ fs.createReadStream(mapMyRunPath)
           tags,
       };
 
-      const outPath = path.join(outputPath, rowNum + '.json');
+      const outPath = path.join(mapMyRunOutputDir, rowNum + '.json');
 
       fs.writeFileSync(outPath, JSON.stringify(document));
   })
