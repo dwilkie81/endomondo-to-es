@@ -59,15 +59,13 @@ Now we can start querying the data
 
 ### Map My Run
 
-NB: This won't work at the moment because we no longer have a workouts index.
-
 Put the CSV in `data/map.my.run.raw/`
-Run `rm ../data/csv.to.object/*.json` to clear any previously created files
-Run `node transform2.js ../data/map.my.run.raw/filename.csv`
-Load to ES with:
+Run `node loadMapMyRunData.js -r esm ../data/map.my.run.raw/filename.csv`
 
-Run the script `node -r esm loadData.js mapmyrun workouts.mapmyrun.20210201`
+This will parse the csv and load into a new index in ES.
+The index will be aliased to workouts.
+Currently any old indexes must be manually deleted to remove duplicate data.
 
 ### Next steps
 
-* Improve import process for map my run CSV
+* Remove aliases for old indexes after loading
