@@ -3,8 +3,7 @@
  */
 
 import { transformMapMyRunRow } from './util/transformMapMyRunRow';
-import { createIndex, aliasIndex } from './util/manageIndexes';
-import axios from 'axios';
+import { createIndex, aliasIndex, loadRecord } from './util/manageIndexes';
 
 const csv = require('csv-parser');
 const fs = require('fs');
@@ -12,7 +11,6 @@ const fs = require('fs');
 const mapMyRunPath = process.argv[2];
 const now = (new Date()).getTime();
 const indexName = `workouts.mapmyrun.${now}`;
-const elasticSearchHost = 'http://localhost:9200';
  
 const main = async () => {
     console.log('Transforming from: ', mapMyRunPath);
@@ -23,23 +21,11 @@ const main = async () => {
     await aliasIndex(indexName, 'workouts');
     console.log('alias indexed as workouts');
 
-    const loadRecord = async (data) => {
-        try {
-            await axios({
-                method: 'POST',
-                url: `${elasticSearchHost}/${indexName}/_doc`,
-                data,
-            });
-        } catch (error) {
-            console.log(error.response);
-        }
-    };
-
     fs.createReadStream(mapMyRunPath)
     .pipe(csv())
     .on('data', (row) => {
         const document = transformMapMyRunRow(row);
-        loadRecord(document);
+        loadRecord(document, indexName);
     })
     .on('end', () => {
         console.log('CSV file successfully processed');

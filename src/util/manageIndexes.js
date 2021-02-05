@@ -30,3 +30,15 @@ export const aliasIndex = async (indexName, aliasName) => {
         }
     });
 }
+
+export const loadRecord = async (data, indexName) => {
+    try {
+        await axios({
+            method: 'POST',
+            url: `${elasticSearchHost}/${indexName}/_doc`,
+            data,
+        });
+    } catch (error) {
+        console.log(error.response);
+    }
+};
