@@ -31,6 +31,7 @@ const COLS = {
 const sportTransform = {
     'Walk': 'Walking',
     'Bike Ride': 'Cycling (Sport)',
+    'Run': 'Running', // TODO: Handle running
 
     // 'MOUNTAIN_BIKING': 'Mountain Biking',
     // 'SPINNING': 'Turbo Trainer',
