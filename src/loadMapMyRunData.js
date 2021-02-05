@@ -8,7 +8,6 @@ import axios from 'axios';
 
 const csv = require('csv-parser');
 const fs = require('fs');
-const path = require('path');
  
 const mapMyRunPath = process.argv[2];
 const now = (new Date()).getTime();
