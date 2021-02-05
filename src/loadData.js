@@ -1,9 +1,9 @@
 /**
  * Usage node -r esm loadData.js [source] [indexName]
  * 
- * source is one of endomondo | mapmyrun
+ * source is one of endomondo
  * 
- * will create a new index and mapping, alias to workouts and load the endomondo/map my run data
+ * will create a new index and mapping, alias to workouts and load the endomondo data
  */
 import { createIndex, aliasIndex } from './manageIndexes';
 import axios from 'axios';
@@ -16,7 +16,6 @@ const fs = require('fs');
 
 const dataPaths = {
     endomondo: path.join(__dirname, '../data/array.to.object'),
-    mapmyrun: path.join(__dirname, '../data/csv.to.object'),
 };
 
 const dataSource = process.argv[2];
