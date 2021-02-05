@@ -3,7 +3,7 @@
  */
 
 import { transformMapMyRunRow } from './util/transformMapMyRunRow';
-import { createIndex, aliasIndex } from './manageIndexes';
+import { createIndex, aliasIndex } from './util/manageIndexes';
 import axios from 'axios';
 
 const csv = require('csv-parser');

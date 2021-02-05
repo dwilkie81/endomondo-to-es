@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { mappings } from './mappings';
+import { mappings } from '../mappings';
 
 const elasticSearchHost = 'http://localhost:9200';
 

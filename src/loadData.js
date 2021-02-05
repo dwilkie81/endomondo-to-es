@@ -5,7 +5,7 @@
  * 
  * will create a new index and mapping, alias to workouts and load the endomondo data
  */
-import { createIndex, aliasIndex } from './manageIndexes';
+import { createIndex, aliasIndex } from './util/manageIndexes';
 import axios from 'axios';
 import { exit } from 'process';
 
