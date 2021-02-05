@@ -3,14 +3,16 @@
  */
 
 import { transformMapMyRunRow } from './util/transformMapMyRunRow';
-import { createIndex, aliasIndex, loadRecord } from './util/manageIndexes';
+import { createIndex, aliasIndex, loadRecord, removeOldAliases } from './util/manageIndexes';
 
 const csv = require('csv-parser');
 const fs = require('fs');
  
 const mapMyRunPath = process.argv[2];
 const now = (new Date()).getTime();
-const indexName = `workouts.mapmyrun.${now}`;
+const indexPrefix = 'workouts.mapmyrun.';
+const indexName = `${indexPrefix}${now}`;
+const aliasName = 'workouts';
  
 const main = async () => {
     console.log('Transforming from: ', mapMyRunPath);
@@ -18,8 +20,8 @@ const main = async () => {
     await createIndex(indexName);
     console.log('index created: ', indexName);
 
-    await aliasIndex(indexName, 'workouts');
-    console.log('alias indexed as workouts');
+    await aliasIndex(indexName, aliasName);
+    console.log('alias indexed as ', aliasName);
 
     fs.createReadStream(mapMyRunPath)
     .pipe(csv())
@@ -29,6 +31,7 @@ const main = async () => {
     })
     .on('end', () => {
         console.log('CSV file successfully processed');
+        removeOldAliases(aliasName, indexPrefix);
     });
 };
 

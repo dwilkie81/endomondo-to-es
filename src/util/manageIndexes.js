@@ -31,8 +31,16 @@ export const aliasIndex = async (indexName, aliasName) => {
     });
 }
 
+export const deleteAlias = async (indexName, aliasName) => {
+    await axios({
+        method: 'DELETE',
+        url: `${elasticSearchHost}/${indexName}/_alias/${aliasName}`,
+    });
+}
+
 export const loadRecord = async (data, indexName) => {
     try {
+        console.log('loading data to', indexName);
         await axios({
             method: 'POST',
             url: `${elasticSearchHost}/${indexName}/_doc`,
@@ -42,3 +50,22 @@ export const loadRecord = async (data, indexName) => {
         console.log(error.response);
     }
 };
+
+export const removeOldAliases = async (aliasName, indexPrefix) => {
+    try {
+        const aliases = await axios({
+            method: 'GET',
+            url: `${elasticSearchHost}/${aliasName}/_alias`,
+        });
+
+        const matches = Object.keys(aliases.data).filter(a => a.startsWith(indexPrefix));
+
+        for(let i=0; i<matches.length - 1; i++) {
+            console.log('deleting alias for ', matches[i]);
+            await deleteAlias(matches[i], aliasName);
+        }
+    } catch (error) {
+        console.log(error.response);
+    }        
+}
+

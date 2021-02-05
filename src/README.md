@@ -64,8 +64,4 @@ Run `node loadMapMyRunData.js -r esm ../data/map.my.run.raw/filename.csv`
 
 This will parse the csv and load into a new index in ES.
 The index will be aliased to workouts.
-Currently any old indexes must be manually deleted to remove duplicate data.
-
-### Next steps
-
-* Remove aliases for old indexes after loading
+Any old map my run indices will be unaliased but not removed.
