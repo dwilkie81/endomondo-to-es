@@ -15,13 +15,13 @@ const indexName = `${indexPrefix}${now}`;
 const aliasName = 'workouts';
  
 const main = async () => {
-    console.log('Transforming from: ', mapMyRunPath);
+    console.log('Transforming from:', mapMyRunPath);
 
     await createIndex(indexName);
-    console.log('index created: ', indexName);
+    console.log('index created:', indexName);
 
     await aliasIndex(indexName, aliasName);
-    console.log('alias indexed as ', aliasName);
+    console.log('alias indexed as:', aliasName);
 
     fs.createReadStream(mapMyRunPath)
     .pipe(csv())
