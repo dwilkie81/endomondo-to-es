@@ -28,11 +28,17 @@ export const transformMapMyRunRow = (row) => {
     const calories_kcal = Number(row[COLS.CALORIES]);   
     const speed_avg_kmh = Number(row[COLS.AVG_SPEED]);
     const speed_max_kmh = Number(row[COLS.MAX_SPEED]);
-    const tags = row[COLS.NOTES].replace(/^b\'/, '').replace(/\'$/, '').split(' ').filter(tag => tag.startsWith('#')).map(tag => tag.replace(/^#/, ''));
+    const tags = row[COLS.NOTES].replace(/^b\'/, '').replace(/\'$/, '').split(' ').filter(tag => tag.startsWith('#')).map(tag => tag.replace(/^#/, '').toUpperCase());
 
+    // Map my run doesn't distinguish between different cycling in the export
     if (sport === 'Cycling (Sport)' && tags.includes('MOUNTAIN_BIKING')) {
         sport = MOUNTAIN_BIKING;
     } 
+
+    // TODO: More generic way to handle tags for parts which aren't tagged in Map My Run
+    if (start_time <= (new Date(2021, 2, 21).getTime()) && tags.includes('CORTEX')) {
+        tags.push('TRAILBOSS3')
+    }
 
     return {
         sport,
