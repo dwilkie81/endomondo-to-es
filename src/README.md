@@ -60,7 +60,7 @@ Now we can start querying the data
 ### Map My Run
 
 Put the CSV in `data/map.my.run.raw/`
-Run `node loadMapMyRunData.js -r esm ../data/map.my.run.raw/filename.csv`
+Run `node -r esm loadMapMyRunData.js ../data/map.my.run.raw/filename.csv`
 
 This will parse the csv and load into a new index in ES.
 The index will be aliased to workouts.
