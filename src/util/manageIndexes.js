@@ -58,7 +58,9 @@ export const removeOldAliases = async (aliasName, indexPrefix) => {
             url: `${elasticSearchHost}/${aliasName}/_alias`,
         });
 
-        const matches = Object.keys(aliases.data).filter(a => a.startsWith(indexPrefix));
+        const matches = Object.keys(aliases.data)
+            .filter(a => a.startsWith(indexPrefix))
+            .sort((a,b) => parseInt(a.replace(indexPrefix, '')) - parseInt(b.replace(indexPrefix, '')));
 
         for(let i=0; i<matches.length - 1; i++) {
             console.log('deleting alias for ', matches[i]);
