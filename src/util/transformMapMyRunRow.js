@@ -37,7 +37,18 @@ export const transformMapMyRunRow = (row) => {
 
     // TODO: More generic way to handle tags for parts which aren't tagged in Map My Run
     if (start_time <= (new Date(2021, 2, 21).getTime()) && tags.includes('CORTEX')) {
-        tags.push('TRAILBOSS3')
+        tags.push('TRAILBOSS3');
+    }
+
+    if (start_time > (new Date(2021, 2, 21).getTime()) && tags.includes('CORTEX')) {
+        tags.push('MAXXISMINION');
+        tags.push('TUBE30');
+    }
+
+    if (start_time > (new Date(2021, 2, 27).getTime()) && tags.includes('CORTEX')) {
+        tags.push('XKING1');
+        tags.push('REARMECH6C');
+        tags.push('MOUNTAINKING6');
     }
 
     return {
