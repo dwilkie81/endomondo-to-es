@@ -10,7 +10,7 @@ const monthTransform = {
     'Jun.': 5, 'June': 5,
     'Jul.': 6, 'July': 6,
     'Aug.': 7, 'August': 7,
-    'Sep.': 8, 'September': 8,
+    'Sep.': 8, 'Sept.': 8, 'September': 8,
     'Oct.': 9, 'October': 9,
     'Nov.': 10, 'November': 10,
     'Dec.': 11, 'December': 11,
